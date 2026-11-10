@@ -1,0 +1,684 @@
+/*!
+ * HUB Young Polish — restyling della UI (barra superiore, toolbar, modali).
+ * Non tocca il contenuto dei libri: agisce solo sui "chrome" dell'app.
+ * Tutto è scoped su html.ny-polish (aggiunta dal JS) e reversibile.
+ */
+
+:root {
+  --ny-ink: #0e3444;
+  --ny-ink-soft: #3d5a66;
+  --ny-teal: #267782;
+  --ny-teal-strong: #1b5f69;
+  --ny-tint: #eaf4f5;
+  --ny-line: rgba(14, 52, 68, 0.1);
+  --ny-radius: 12px;
+  --ny-shadow: 0 10px 30px -18px rgba(14, 52, 68, 0.55);
+}
+
+html.ny-polish body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- scrollbar ---------- */
+html.ny-polish ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html.ny-polish ::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.ny-polish ::-webkit-scrollbar-thumb {
+  background: #c6d4d8;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+html.ny-polish ::-webkit-scrollbar-thumb:hover {
+  background: #9fb5bb;
+  background-clip: padding-box;
+}
+
+/* ---------- focus visibile (accessibilità) ---------- */
+html.ny-polish button:focus-visible,
+html.ny-polish a:focus-visible,
+html.ny-polish [role="button"]:focus-visible,
+html.ny-polish input:focus-visible {
+  outline: 2px solid var(--ny-teal) !important;
+  outline-offset: 2px !important;
+}
+
+/* ================= BARRA SUPERIORE ================= */
+html.ny-polish .reader-header-wrapper .reader-header {
+  height: 64px !important;
+  padding: 10px 18px !important;
+  gap: 14px !important;
+  background: rgba(255, 255, 255, 0.93) !important;
+  -webkit-backdrop-filter: saturate(1.5) blur(18px);
+  backdrop-filter: saturate(1.5) blur(18px);
+  border-bottom: 1px solid var(--ny-line) !important;
+  box-shadow: 0 10px 30px -22px rgba(14, 52, 68, 0.65) !important;
+}
+
+html.ny-polish .reader-header-left,
+html.ny-polish .reader-header-right {
+  align-items: center;
+  gap: 8px !important;
+}
+
+html.ny-polish .reader-header-status-container,
+html.ny-polish .reader-header-pager-container {
+  gap: 8px !important;
+  align-items: center;
+}
+
+/* bottone Home */
+html.ny-polish .home-btn {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px !important;
+  background: var(--ny-ink) !important;
+  box-shadow: 0 6px 16px -10px rgba(14, 52, 68, 0.9);
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+html.ny-polish .home-btn:hover {
+  background: var(--ny-teal-strong) !important;
+  transform: translateY(-1px);
+}
+html.ny-polish .home-btn span {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* voci di navigazione (Indice, HUB Kit, Preferiti, Quaderno, Impostazioni) */
+html.ny-polish .reader-header-navigation-link {
+  height: 40px !important;
+  padding: 0 12px !important;
+  gap: 8px !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--ny-radius) !important;
+  background: transparent !important;
+  color: var(--ny-ink) !important;
+  font-weight: 700;
+  transition: background 0.16s ease, border-color 0.16s ease,
+    box-shadow 0.16s ease, color 0.16s ease;
+}
+html.ny-polish .reader-header-navigation-link:hover {
+  background: #fff !important;
+  border-color: var(--ny-line) !important;
+  box-shadow: var(--ny-shadow);
+}
+html.ny-polish .reader-header-navigation-link.active {
+  background: var(--ny-teal) !important;
+  border-color: var(--ny-teal) !important;
+  color: #fff !important;
+}
+html.ny-polish .reader-header-navigation-link.active .icon-yke {
+  color: #fff !important;
+}
+html.ny-polish .reader-header-navigation-link .icon-yke {
+  font-size: 20px !important;
+  padding: 0 !important;
+}
+html.ny-polish .reader-header-navigation-link .text {
+  font-size: 12.5px !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+html.ny-polish
+  .reader-header-navigation-link
+  .text.settings-item-label
+  .settings-item-label-disabled {
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  opacity: 0.75;
+}
+html.ny-polish .reader-header-navigation-link.disabled {
+  opacity: 0.35 !important;
+}
+
+/* indicatore pagina "Pagina ▸ 500" */
+html.ny-polish .g-page-jump {
+  height: 40px !important;
+  padding: 0 14px !important;
+  border: 1px solid var(--ny-line) !important;
+  border-radius: var(--ny-radius) !important;
+  background: #fff !important;
+  color: var(--ny-ink) !important;
+  box-shadow: 0 4px 14px -12px rgba(14, 52, 68, 0.8);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+html.ny-polish .g-page-jump:hover {
+  border-color: rgba(38, 119, 130, 0.55) !important;
+}
+html.ny-polish .g-page-jump-name {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  color: var(--ny-ink-soft) !important;
+}
+html.ny-polish .g-page-jump-value input[type="text"] {
+  width: 46px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: var(--ny-ink) !important;
+  text-align: center !important;
+}
+html.ny-polish .g-page-jump--active {
+  width: 210px !important;
+  background: #fff !important;
+}
+html.ny-polish .g-page-jump--active .g-page-jump-value input[type="text"] {
+  border-radius: 10px !important;
+}
+
+/* frecce di cambio pagina ai lati del libro */
+html.ny-polish .module-reader-center-bar-reader-nav .g-btn-page {
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--ny-ink) !important;
+  border: 1px solid var(--ny-line) !important;
+  box-shadow: 0 8px 22px -14px rgba(14, 52, 68, 0.7);
+  transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+html.ny-polish .module-reader-center-bar-reader-nav .g-btn-page:hover {
+  background: var(--ny-teal) !important;
+  color: #fff !important;
+  transform: scale(1.06);
+}
+
+/* ================= TOOLBAR INFERIORE ================= */
+html.ny-polish .bottom-toolbar,
+html.ny-polish .module-reader-bottom-bar-reader {
+  background: #fff !important;
+  border-top: 1px solid var(--ny-line) !important;
+  box-shadow: 0 -14px 34px -26px rgba(14, 52, 68, 0.65) !important;
+}
+
+html.ny-polish .footer-container .footer-body .tools-container {
+  gap: 0.45rem !important;
+}
+html.ny-polish .footer-container .footer-body .tools-container li {
+  padding: 0.375rem 0 !important;
+}
+html.ny-polish .footer-container .footer-body .tools-container li button {
+  min-width: 58px;
+  padding: 6px 8px !important;
+  border-radius: var(--ny-radius) !important;
+  color: var(--ny-ink) !important;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+html.ny-polish .footer-container .footer-body .tools-container li button:hover {
+  background: var(--ny-tint) !important;
+  color: var(--ny-teal-strong) !important;
+}
+html.ny-polish .footer-container .footer-body .tools-container li button.active {
+  background: var(--ny-tint) !important;
+  color: var(--ny-teal-strong) !important;
+  box-shadow: inset 0 0 0 1.5px rgba(38, 119, 130, 0.6);
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .tools-container
+  li
+  button
+  .icon-yke {
+  font-size: 22px !important;
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .tools-container
+  li
+  button
+  .menu-icon-name {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .tools-container
+  li
+  button.disabled {
+  opacity: 0.32 !important;
+}
+html.ny-polish .footer-container .footer-body .tool-divider,
+html.ny-polish .toolbar-body .tool-divider {
+  width: 1px !important;
+  height: 22px !important;
+  border: 0 !important;
+  background: #e3ecee !important;
+}
+
+/* zoom: via il verde lime, dentro pulsanti neutri coerenti */
+html.ny-polish
+  .footer-container
+  .footer-body
+  .zoom-section
+  .zoom-container {
+  gap: 0.5rem !important;
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .zoom-section
+  .zoom-container
+  .zoom-btn {
+  height: 38px !important;
+  width: 38px !important;
+  border: 1px solid var(--ny-line) !important;
+  border-radius: 11px !important;
+  background: #fff !important;
+  box-shadow: 0 4px 12px -10px rgba(14, 52, 68, 0.8);
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.15s ease;
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .zoom-section
+  .zoom-container
+  .zoom-btn:hover {
+  background: var(--ny-tint) !important;
+  border-color: rgba(38, 119, 130, 0.45) !important;
+  transform: translateY(-1px);
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .zoom-section
+  .zoom-container
+  .zoom-btn
+  .icon-yke {
+  font-size: 18px !important;
+  color: var(--ny-ink) !important;
+}
+html.ny-polish
+  .footer-container
+  .footer-body
+  .zoom-section
+  .zoom-container
+  .zoom-btn.disabled {
+  opacity: 0.3 !important;
+}
+
+/* barre contestuali (testo liquido, evidenzia, nota, taglia…) */
+html.ny-polish .toolbar-body {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px -30px rgba(14, 52, 68, 0.7);
+}
+html.ny-polish .toolbar-body .tool-container button {
+  border-radius: 10px !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+html.ny-polish .toolbar-body .tool-container button:hover {
+  background: var(--ny-tint) !important;
+  color: var(--ny-teal-strong) !important;
+}
+html.ny-polish .toolbar-body .tool-container button.active {
+  background: var(--ny-teal) !important;
+  color: #fff !important;
+}
+html.ny-polish .toolbar-body .tool-container.text-size-selector button {
+  border-radius: 8px !important;
+  font-variant-numeric: tabular-nums;
+}
+html.ny-polish .toolbar-body .tool-container.text-size-selector button:hover {
+  background: var(--ny-tint) !important;
+}
+html.ny-polish .toolbar-body .tool-container.text-size-selector button.active {
+  background: var(--ny-teal) !important;
+}
+html.ny-polish .toolbar-body .trash-container .trash-btn {
+  border-radius: 10px !important;
+  transition: background 0.15s ease;
+}
+html.ny-polish .toolbar-body .trash-container .trash-btn:hover {
+  background: #fdecea !important;
+}
+
+/* ================= MODALI ================= */
+html.ny-polish .modal-content {
+  border: 0 !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-shadow: 0 40px 90px -40px rgba(14, 52, 68, 0.7) !important;
+}
+html.ny-polish .modal-header {
+  border-bottom: 1px solid var(--ny-line) !important;
+}
+html.ny-polish .modal-footer {
+  border-top: 1px solid var(--ny-line) !important;
+}
+html.ny-polish .tooltip-inner {
+  padding: 6px 9px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= MODALITÀ LETTURA (zen) ================= */
+html.ny-polish.ny-zen .reader-header-wrapper {
+  transition: transform 0.28s ease !important;
+  transform: translateY(-108%);
+}
+html.ny-polish.ny-zen .reader-header-wrapper.ny-peek {
+  transform: none;
+}
+html.ny-polish.ny-zen .bottom-toolbar,
+html.ny-polish.ny-zen .module-reader-bottom-bar-reader {
+  transition: transform 0.28s ease !important;
+  transform: translateY(110%);
+}
+html.ny-polish.ny-zen .bottom-toolbar.ny-peek,
+html.ny-polish.ny-zen .module-reader-bottom-bar-reader.ny-peek {
+  transform: none;
+}
+html.ny-polish.ny-zen .module-reader-center-bar-reader {
+  opacity: 0.12;
+  transition: opacity 0.3s ease;
+}
+html.ny-polish.ny-zen .module-reader-center-bar-reader:hover {
+  opacity: 1;
+}
+
+/* toast di conferma */
+html.ny-polish .ny-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 92px;
+  z-index: 99999;
+  transform: translate(-50%, 14px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(14, 52, 68, 0.94);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+html.ny-polish .ny-toast.ny-toast--show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.ny-polish * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   LIBRERIA (prima schermata)
+   ============================================================ */
+
+html.ny-polish .dashboard-library-header {
+  padding: 1.5rem 2.5rem 0 !important;
+}
+
+html.ny-polish .dashboard-library-header .header-navigation-container ul {
+  gap: 2.25rem !important;
+}
+html.ny-polish .dashboard-library-header .header-navigation-container ul li button {
+  padding: 0.25rem 0.125rem 0.55rem !important;
+  border-bottom: 2px solid transparent !important;
+  font-size: 1.2rem !important;
+  line-height: 1.9rem !important;
+  color: var(--ny-ink) !important;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+html.ny-polish .dashboard-library-header .header-navigation-container ul li button:hover {
+  border-bottom-color: rgba(38, 119, 130, 0.35) !important;
+}
+html.ny-polish .dashboard-library-header .header-navigation-container ul li button.active {
+  border-bottom-color: var(--ny-teal) !important;
+}
+
+/* ricerca + menu */
+html.ny-polish .header-menu-search-btn button {
+  height: 2.75rem !important;
+  width: 2.75rem !important;
+  background: #fff !important;
+  border: 1px solid var(--ny-line) !important;
+  box-shadow: 0 8px 22px -16px rgba(14, 52, 68, 0.7) !important;
+  transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+html.ny-polish .header-menu-search-btn button:hover {
+  background: var(--ny-tint) !important;
+  border-color: rgba(38, 119, 130, 0.45) !important;
+  transform: translateY(-1px);
+}
+html.ny-polish .btn-menu {
+  height: 2.75rem !important;
+  padding: 0 1.15rem !important;
+  gap: 0.5rem;
+  border-radius: var(--ny-radius) !important;
+  background: var(--ny-ink) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  border: 0 !important;
+  box-shadow: 0 10px 24px -16px rgba(14, 52, 68, 0.9);
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+html.ny-polish .btn-menu:hover {
+  background: var(--ny-teal-strong) !important;
+  transform: translateY(-1px);
+}
+html.ny-polish .btn-menu .icon,
+html.ny-polish .btn-menu .icon-yke {
+  color: #fff !important;
+}
+
+/* filtri: Ordina per / Editore / Preferiti */
+html.ny-polish .header-external-filter-container {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0.75rem !important;
+  background: transparent !important;
+}
+html.ny-polish .header-external-filter-container .filter-btn,
+html.ny-polish .header-external-filter-container .favorites-btn,
+html.ny-polish .header-external-filter-container .filter-remover {
+  height: 2.5rem !important;
+  border: 1px solid var(--ny-line) !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: var(--ny-ink) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 6px 18px -16px rgba(14, 52, 68, 0.75);
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+html.ny-polish .header-external-filter-container .filter-btn:hover,
+html.ny-polish .header-external-filter-container .favorites-btn:hover {
+  border-color: rgba(38, 119, 130, 0.5) !important;
+  background: #fff !important;
+}
+html.ny-polish .header-external-filter-container .filter-btn.active,
+html.ny-polish .header-external-filter-container .favorites-btn.active {
+  border-color: var(--ny-teal) !important;
+  background: var(--ny-tint) !important;
+  color: var(--ny-teal-strong) !important;
+}
+html.ny-polish .header-external-filter-container .filter-btn-text {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
+/* card dei libri */
+html.ny-polish .slider-book {
+  gap: 1.5rem !important;
+}
+html.ny-polish .block-book-wrapper {
+  background: #fff !important;
+  border: 1px solid var(--ny-line) !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 18px 40px -34px rgba(14, 52, 68, 0.65);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+html.ny-polish .block-book-wrapper:hover {
+  transform: translateY(-3px);
+  border-color: rgba(38, 119, 130, 0.35) !important;
+  box-shadow: 0 26px 60px -34px rgba(14, 52, 68, 0.55);
+}
+html.ny-polish .block-book-thumb {
+  border-radius: 0.35rem;
+  box-shadow: 0 22px 30px -18px rgba(14, 52, 68, 0.65) !important;
+}
+html.ny-polish .book-panel .panel-icons {
+  gap: 0.95rem !important;
+}
+html.ny-polish .block-book-wrapper .book-panel .panel-icons button {
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+html.ny-polish .block-book-wrapper .book-panel .panel-icons button:hover {
+  background: var(--ny-tint) !important;
+}
+html.ny-polish .block-book-title-container {
+  margin-top: 0.9rem !important;
+  height: 3.1rem !important;
+}
+html.ny-polish .block-book-title {
+  font-size: 0.95rem !important;
+  line-height: 1.35rem !important;
+  font-weight: 700 !important;
+  color: var(--ny-ink) !important;
+}
+html.ny-polish .block-book-subtitle {
+  font-size: 0.8rem !important;
+  line-height: 1.2rem !important;
+  font-weight: 500 !important;
+  color: #5b7480 !important;
+}
+html.ny-polish .block-book-btn button {
+  min-height: 2.6rem;
+  padding: 0.6rem 1.6rem !important;
+  background: var(--ny-ink) !important;
+  border: 1px solid var(--ny-ink) !important;
+  border-radius: 0.75rem !important;
+  color: #fff !important;
+  font-size: 0.875rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em;
+  transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+  box-shadow: 0 12px 26px -18px rgba(14, 52, 68, 0.9);
+}
+html.ny-polish .block-book-btn button:hover {
+  background: var(--ny-teal-strong) !important;
+  border-color: var(--ny-teal-strong) !important;
+  transform: translateY(-1px);
+}
+html.ny-polish .block-book-btn button:active {
+  transform: translateY(0);
+}
+
+/* stato download "100% Scaricato" */
+html.ny-polish .book-update-panel {
+  padding: 0 0.35rem !important;
+  margin-bottom: 0.6rem !important;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  color: #6a8794 !important;
+}
+html.ny-polish .book-update-panel .book-update-percentage {
+  color: var(--ny-teal) !important;
+  font-weight: 700 !important;
+}
+
+/* barra inferiore della libreria */
+html.ny-polish .module-library-bottom-bar-library {
+  background: var(--ny-ink) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 45%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+html.ny-polish .dashboard-library-footer .actions-container .action {
+  padding: 0.9rem 1.35rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 0.85rem !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 14px 30px -22px rgba(0, 0, 0, 0.8);
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+html.ny-polish .dashboard-library-footer .actions-container .action:hover {
+  background: #fff !important;
+  transform: translateY(-2px);
+}
+html.ny-polish .dashboard-library-footer .help-btn {
+  padding: 0.5rem 0.9rem !important;
+  border-radius: 0.7rem !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  transition: background 0.16s ease;
+}
+html.ny-polish .dashboard-library-footer .help-btn:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+html.ny-polish .dashboard-library-footer .help-btn span:not(.icon-yke),
+html.ny-polish .dashboard-library-footer .help-btn .icon-yke {
+  color: #fff !important;
+}
+
+/* menu utente (popover) */
+html.ny-polish .tooltip-user-menu .popover-body {
+  border-radius: 0.85rem !important;
+  box-shadow: 0 30px 70px -30px rgba(14, 52, 68, 0.7) !important;
+}
+html.ny-polish .tooltip-user-menu .popover-body .user-info {
+  background: var(--ny-ink) !important;
+  color: #fff !important;
+}
+html.ny-polish .tooltip-user-menu .popover-body .user-menu {
+  background: #fff !important;
+}
+html.ny-polish .tooltip-user-menu .user-menu-link:hover {
+  background: var(--ny-tint) !important;
+}
+
+/* pulsanti primari (lime -> teal) */
+html.ny-polish .btn-primary {
+  background: var(--ny-teal) !important;
+  border-color: var(--ny-teal) !important;
+  color: #fff !important;
+}
+html.ny-polish .btn-primary:hover {
+  background: var(--ny-teal-strong) !important;
+  border-color: var(--ny-teal-strong) !important;
+}
+html.ny-polish input[type="checkbox"]:checked,
+html.ny-polish input[type="radio"]:checked {
+  background-color: var(--ny-teal) !important;
+  border-color: var(--ny-teal) !important;
+}
+
+html.ny-polish .filter-option input[type="checkbox"]:checked::before,
+html.ny-polish .filter-option input[type="radio"]:checked::before,
+html.ny-polish .filter-radio:checked::before {
+  color: #fff !important;
+  background-color: #fff !important;
+}
+html.ny-polish .filter-option input[type="checkbox"]:checked::before {
+  content: "\e97b";
+  background-color: transparent !important;
+  color: #fff !important;
+}

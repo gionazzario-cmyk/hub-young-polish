@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+._*
+
+# Backup generati dallo script di installazione
+*.ny-backup
+
+# Log
+*.log
